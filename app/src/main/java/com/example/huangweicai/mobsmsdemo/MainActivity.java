@@ -273,10 +273,20 @@ public class MainActivity extends Activity implements OnClickListener, Callback 
         //根据源码补充
         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
             //提交验证码成功回调
-            Toast.makeText(this, "提交验证码", Toast.LENGTH_SHORT).show();
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                //验证码验证成功
+                //registerNet();//注册行为
+            } else {
+                //验证码验证失败
+                //验证码不正确
+                ((Throwable) data).printStackTrace();
+                String message = ((Throwable) data).getMessage();
+                Toast.makeText(this, "验证码不正确", Toast.LENGTH_SHORT).show();
+            }
+
         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
             //获取验证码成功回调
-            Toast.makeText(this, "获取验证码成功后的执行动作", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "获取验证码成功回调", Toast.LENGTH_SHORT).show();
         } else if (event == SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE) {
             /** 获取语音版验证码成功后的执行动作 */
             //Toast.makeText(this, "获取语音版验证码成功后的执行动作", Toast.LENGTH_SHORT).show();
